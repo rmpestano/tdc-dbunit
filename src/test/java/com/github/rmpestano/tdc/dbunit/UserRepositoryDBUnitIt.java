@@ -52,7 +52,7 @@ public class UserRepositoryDBUnitIt {
 
     @Test
     @DataSet(value = "users.yml")
-    @ExportDataSet(includeTables = "users", outputName = "users.yml")
+    @ExportDataSet(includeTables = "user_", outputName = "users.yml")
     public void shouldListUsers() {
         assertThat(userRepository.count()).isEqualTo(3);
         assertThat(userRepository.findByEmail("springboot@gmail.com"))
