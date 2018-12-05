@@ -104,8 +104,7 @@
                 <configuration>
                     <runOrder>alphabetical</runOrder>
                     <includes>
-                        <include>**/*PostgreIt.java</include>
-                        <include>**/*DBUnitIt.java</include>
+                        <include>**/*It.java</include>
                     </includes>
                     <systemPropertyVariables>
                         <java.util.logging.config.file>
