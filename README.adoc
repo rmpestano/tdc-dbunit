@@ -1,0 +1,19 @@
+= TDC DBUnit
+:tip-caption: :bulb:
+:note-caption: :information_source:
+:important-caption: :heavy_exclamation_mark:
+:caution-caption: :fire:
+:warning-caption: :warning:
+
+Code samples for the `Testing your persistence layer with Database Rider` presentation at Developers conference 2018 in Porto Alegre.
+
+
+== Slides
+
+Slides are http://rmpestano.github.io/talks/slides/testing-your-persistence-layer/index-en.html[available here^].
+
+== Running tests
+
+Tests can be run via maven with command:
+
+`mvn test`

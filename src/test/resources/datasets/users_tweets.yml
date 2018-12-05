@@ -1,0 +1,20 @@
+USERS:
+  - ID: 1
+    EMAIL: "dbunit@gmail.com"
+    NAME: "dbunit"
+  - ID: 2
+    EMAIL: "springboot@gmail.com"
+    NAME: "springbott"
+TWEET:
+  - ID: 1
+    CONTENT: "dbunit rules!"
+    DATE: "[DAY,NOW]"
+    USER_ID: 1
+  - ID: 2
+    CONTENT: "Groovy in datasets!!"
+    DATE: "groovy:new Date()"
+    USER_ID: 1
+  - ID: "js:Math.floor(Math.random() * (1000))"
+    CONTENT: "Javascrpt in datasets!!"
+    LIKES: "js:(5+5)*10/2"
+    USER_ID: 1
