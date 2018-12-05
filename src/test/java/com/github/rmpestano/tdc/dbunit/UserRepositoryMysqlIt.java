@@ -24,7 +24,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DBRider //enables database rider in spring tests
 public class UserRepositoryMysqlIt {
 
-    private static final MySQLContainer mysql = new MySQLContainer(); //creates the database for all tests on this file
+    private static final MySQLContainer mysql = new MySQLContainer("mysql:5.5"); //creates the database for all tests on this file
 
 
     @Autowired
