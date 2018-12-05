@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-@Table(name = "tweet")
+@Table(name = "\"tweet\"")
 public class Tweet {
 
     @Id

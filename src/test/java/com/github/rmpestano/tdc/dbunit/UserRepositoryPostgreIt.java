@@ -25,16 +25,15 @@ import org.testcontainers.containers.PostgreSQLContainer;
 @SpringBootTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("postgres-test")
 @DBRider //enables database rider in spring tests
-@DBUnit(caseInsensitiveStrategy = Orthography.LOWERCASE)
 public class UserRepositoryPostgreIt {
-    
+
     private static final PostgreSQLContainer postgres = new PostgreSQLContainer(); //creates the database for all tests on this file 
 
 
     @Autowired
     private UserRepository userRepository;
-    
-    
+
+
     @BeforeClass
     public static void setupContainer() {
         postgres.start();
@@ -63,7 +62,7 @@ public class UserRepositoryPostgreIt {
 
 
     @Test
-    @DataSet(cleanBefore = true)//as we didn't declared a dataset DBUnit wont clear the table
+    @DataSet(value="empty.yml")
     @ExpectedDataSet("user.yml")
     public void shouldInsertUser()  {
         assertThat(userRepository.count()).isEqualTo(0);

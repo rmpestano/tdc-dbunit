@@ -1,8 +1,8 @@
-USERS:
-  - ID: 1
-    EMAIL: "dbunit@gmail.com"
-    NAME: "dbunit"
-  - ID: 3
-    EMAIL: "springboot@gmail.com"
-    NAME: "springboot"
+users:
+  - id: 1
+    email: "dbunit@gmail.com"
+    name: "dbunit"
+  - id: 3
+    email: "springboot@gmail.com"
+    name: "springboot"
 

@@ -15,6 +15,8 @@
  */
 package com.github.rmpestano.tdc.dbunit;
 
+import com.github.database.rider.core.api.configuration.DBUnit;
+import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.exporter.ExportDataSet;
 import com.github.database.rider.spring.api.DBRider;
@@ -38,6 +40,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DBRider
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("h2-test")
 @SpringBootTest
+//@DBUnit(caseSensitiveTableNames = false, caseInsensitiveStrategy = Orthography.LOWERCASE)
 public class UserRepositoryDBUnitIt {
 
     @Autowired
@@ -79,7 +82,7 @@ public class UserRepositoryDBUnitIt {
         assertThat(userRepository.count()).isEqualTo(0);
         userRepository.save(new User("newUser@gmail.com", "new user"));
         assertThat(userRepository.count()).isEqualTo(1);
-        assertThat(userRepository.findOne(1L)).isNotNull();
+        assertThat(userRepository.findByEmail("newUser@gmail.com")).isNotNull();
     }
 
 }
