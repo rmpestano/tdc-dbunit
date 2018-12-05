@@ -104,12 +104,12 @@ public class UserRepositoryDBUnitIt {
 
     @Test
     @DataSet(cleanBefore = true)//as we didn't declared a dataset DBUnit wont clear the table
+    @ExpectedDataSet("user.yml")
     public void shouldInsertUser() {
         assertThat(userRepository).isNotNull();
         assertThat(userRepository.count()).isEqualTo(0);
         userRepository.save(new User("newUser@gmail.com", "new user"));
-        assertThat(userRepository.count()).isEqualTo(1);
-        assertThat(userRepository.findByEmail("newUser@gmail.com")).isNotNull();
+        //assertThat(userRepository.findByEmail("newUser@gmail.com")).isNotNull();  @ExpectedDataSet
     }
 
 }
