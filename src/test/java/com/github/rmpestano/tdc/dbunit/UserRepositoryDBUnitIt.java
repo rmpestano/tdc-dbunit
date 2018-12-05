@@ -60,17 +60,6 @@ public class UserRepositoryDBUnitIt {
     }
 
     @Test
-    @DataSet(value = "users_tweets.yml")
-    public void shouldListUsersAndTweets() {
-        assertThat(userRepository.count()).isEqualTo(2);
-        User userWithTweets = userRepository.findByEmailWithTweets("dbunit@gmail.com");
-        assertThat(userWithTweets)
-                .isEqualTo(new User(1));
-        assertThat(userWithTweets.getTweets())
-                .hasSize(3);
-    }
-
-    @Test
     @DataSet(executeScriptsBefore = "addUsers.sql")
     public void shouldListUsersInsertedViaScript() {
         assertThat(userRepository.count()).isEqualTo(10);
@@ -83,11 +72,21 @@ public class UserRepositoryDBUnitIt {
         assertThat(tweetRepository.count()).isEqualTo(2);
     }
 
-
     @Test
     @DataSet(value={"tweets.json", "users.yml"}, disableConstraints = false, cleanBefore = true)
     public void shouldListTweetsDisablingConstraints() {
         assertThat(tweetRepository.count()).isEqualTo(2);
+    }
+
+    @Test
+    @DataSet(value = "users_tweets.yml")
+    public void shouldListUsersAndTweets() {
+        assertThat(userRepository.count()).isEqualTo(2);
+        User userWithTweets = userRepository.findByEmailWithTweets("dbunit@gmail.com");
+        assertThat(userWithTweets)
+                .isEqualTo(new User(1));
+        assertThat(userWithTweets.getTweets())
+                .hasSize(3);
     }
 
 
