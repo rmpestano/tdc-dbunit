@@ -7,9 +7,7 @@ import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import com.github.rmpestano.tdc.dbunit.model.User;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
@@ -28,22 +26,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DBUnit(caseSensitiveTableNames = true)
 public class UserRepositoryDockerIt {
 
-    private static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:9.6.8"); //creates the database for all tests on this file
-
+    @ClassRule
+    public static PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:9.6.8");
 
     @Autowired
     private UserRepository userRepository;
-
-
-    @BeforeClass
-    public static void setupContainer() {
-        postgres.start();
-    }
-
-    @AfterClass
-    public static void shutdown() {
-        postgres.stop();
-    }
 
     @Test
     @DataSet("users.yml")

@@ -4,7 +4,7 @@ user_:
     name: "dbunit"
   - id: 2
     email: "springboot@gmail.com"
-    name: "springbott"
+    name: "springboot"
 tweet:
   - id: 1
     content: "dbunit rules!"

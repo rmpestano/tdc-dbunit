@@ -66,7 +66,6 @@ public class UserRepositoryDBUnitIt {
         assertThat(userRepository.count()).isEqualTo(10);
     }
 
-
     @Test
     @DataSet(value={"tweets.json", "users.yml"})
     public void shouldListTweets() {

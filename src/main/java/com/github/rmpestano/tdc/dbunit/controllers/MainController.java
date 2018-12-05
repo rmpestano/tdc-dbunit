@@ -1,4 +1,4 @@
-package com.github.rmpestano.tdc.dbunit.controller;
+package com.github.rmpestano.tdc.dbunit.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
