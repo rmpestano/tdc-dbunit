@@ -1,0 +1,16 @@
+{
+  "TWEET": [
+    {
+      "id": 1,
+      "content": "dbrider json example",
+      "date": "2013-01-20",
+      "user_id": 1
+    },
+    {
+      "id": 2,
+      "content": "CDI rules",
+      "date": "2016-06-20",
+      "user_id": 2
+    }
+  ]
+}

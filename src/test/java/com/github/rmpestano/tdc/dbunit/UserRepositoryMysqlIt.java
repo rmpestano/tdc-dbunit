@@ -1,33 +1,30 @@
 package com.github.rmpestano.tdc.dbunit;
 
-import com.github.database.rider.core.api.configuration.DBUnit;
-import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import com.github.rmpestano.tdc.dbunit.model.User;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.testcontainers.containers.MySQLContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.testcontainers.containers.PostgreSQLContainer;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("postgres-test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("mysql-test")
 @DBRider //enables database rider in spring tests
-public class UserRepositoryPostgreIt {
+public class UserRepositoryMysqlIt {
 
-    private static final PostgreSQLContainer postgres = new PostgreSQLContainer(); //creates the database for all tests on this file 
+    private static final MySQLContainer mysql = new MySQLContainer(); //creates the database for all tests on this file
 
 
     @Autowired
@@ -36,12 +33,12 @@ public class UserRepositoryPostgreIt {
 
     @BeforeClass
     public static void setupContainer() {
-        postgres.start();
+        mysql.start();
     }
 
     @AfterClass
     public static void shutdown() {
-        postgres.stop();
+        mysql.stop();
     }
 
     @Test

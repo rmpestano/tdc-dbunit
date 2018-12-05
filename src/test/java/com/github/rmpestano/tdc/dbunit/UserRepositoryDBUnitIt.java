@@ -18,9 +18,11 @@ package com.github.rmpestano.tdc.dbunit;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.core.api.exporter.ExportDataSet;
 import com.github.database.rider.spring.api.DBRider;
 import com.github.rmpestano.tdc.dbunit.model.User;
+import com.github.rmpestano.tdc.dbunit.repository.TweetRepository;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -40,11 +42,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DBRider
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("h2-test")
 @SpringBootTest
-//@DBUnit(caseSensitiveTableNames = false, caseInsensitiveStrategy = Orthography.LOWERCASE)
 public class UserRepositoryDBUnitIt {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private TweetRepository tweetRepository;
 
     @Test
     @DataSet(value = "users.yml")
@@ -59,19 +63,43 @@ public class UserRepositoryDBUnitIt {
     @DataSet(value = "users_tweets.yml")
     public void shouldListUsersAndTweets() {
         assertThat(userRepository.count()).isEqualTo(2);
-        assertThat(userRepository.findByEmailWithTweets("dbunit@gmail.com"))
+        User userWithTweets = userRepository.findByEmailWithTweets("dbunit@gmail.com");
+        assertThat(userWithTweets)
                 .isEqualTo(new User(1));
+        assertThat(userWithTweets.getTweets())
+                .hasSize(3);
+    }
+
+    @Test
+    @DataSet(executeScriptsBefore = "addUsers.sql")
+    public void shouldListUsersInsertedViaScript() {
+        assertThat(userRepository.count()).isEqualTo(10);
+    }
+
+
+    @Test
+    @DataSet(value={"tweets.json", "users.yml"})
+    public void shouldListTweets() {
+        assertThat(tweetRepository.count()).isEqualTo(2);
+    }
+
+
+    @Test
+    @DataSet(value={"tweets.json", "users.yml"}, disableConstraints = false, cleanBefore = true)
+    public void shouldListTweetsDisablingConstraints() {
+        assertThat(tweetRepository.count()).isEqualTo(2);
     }
 
 
     @Test
     @DataSet(value="users.yml")
+    @ExpectedDataSet("expectedUsers.yml")
     public void shouldDeleteUser() {
         assertThat(userRepository).isNotNull();
         assertThat(userRepository.count()).isEqualTo(3);
         userRepository.delete(userRepository.findOne(2L));
-        assertThat(userRepository.count()).isEqualTo(2);
-        assertThat(userRepository.findOne(2L)).isNull();
+        //assertThat(userRepository.count()).isEqualTo(2);
+        //assertThat(userRepository.findOne(2L)).isNull(); @ExpectedDataSet
     }
 
 

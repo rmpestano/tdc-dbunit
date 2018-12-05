@@ -1,4 +1,4 @@
-users:
+user_:
   - id: 1
     email: "dbunit@gmail.com"
     name: "dbunit"
