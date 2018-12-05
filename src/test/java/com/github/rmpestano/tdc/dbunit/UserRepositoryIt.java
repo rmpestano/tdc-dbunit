@@ -18,6 +18,7 @@ package com.github.rmpestano.tdc.dbunit;
 import com.github.rmpestano.tdc.dbunit.model.User;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,16 +36,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("h2-test")
 @SpringBootTest
+@Ignore
 public class UserRepositoryIt {
 
     @Autowired
     private UserRepository userRepository;
 
-
-    @Before
-    public void init() {
-        userRepository.findAll().forEach(userRepository::delete);
-    }
 
     @Test
     public void shouldListUsers() {

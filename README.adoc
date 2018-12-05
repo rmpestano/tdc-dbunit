@@ -7,6 +7,8 @@
 
 Code samples for the `Testing your persistence layer with Database Rider` presentation at Developers conference 2018 in Porto Alegre.
 
+image:https://travis-ci.org/rmpestano/tdc-dbunit.svg[Build Status (Travis CI), link=https://travis-ci.org/rmpestano/tdc-dbunit]
+
 
 == Slides
 
