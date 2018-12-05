@@ -54,7 +54,6 @@ public class UserRepositoryV2It {
                 .extracting("email").contains("springboot@gmail.com");
     }
 
-
     @Test
     public void shouldInsertUser() {
         long countBefore = userRepository.count();

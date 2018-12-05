@@ -1,0 +1,4 @@
+user_:
+  - id: "regex:\\d+"
+    email: "newUser@gmail.com"
+    name: "new user"

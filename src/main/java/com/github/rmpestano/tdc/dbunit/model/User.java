@@ -47,16 +47,18 @@ public class User {
         return email;
     }
 
-    public void setEmail(String value) {
+    public User setEmail(String value) {
         this.email = value;
+        return this;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String value) {
+    public User setName(String value) {
         this.name = value;
+        return this;
     }
 
     public Set<Tweet> getTweets() {

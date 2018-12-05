@@ -15,6 +15,8 @@
  */
 package com.github.rmpestano.tdc.dbunit;
 
+import com.github.database.rider.core.api.dataset.DataSet;
+import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.rmpestano.tdc.dbunit.model.User;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;
 import org.junit.Before;
@@ -49,7 +51,6 @@ public class UserRepositoryIt {
         assertThat(userRepository.count()).isEqualTo(1);
         assertThat(userRepository.findByEmail("springboot@gmail.com")).isNotNull();
     }
-
 
     @Test
     public void shouldInsertUser() {

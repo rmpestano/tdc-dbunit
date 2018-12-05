@@ -1,5 +1,5 @@
 {
-  "TWEET": [
+  "tweet": [
     {
       "id": 1,
       "content": "dbrider json example",

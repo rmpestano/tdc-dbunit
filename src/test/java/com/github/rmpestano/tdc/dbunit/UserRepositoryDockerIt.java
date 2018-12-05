@@ -1,5 +1,7 @@
 package com.github.rmpestano.tdc.dbunit;
 
+import com.github.database.rider.core.api.configuration.DBUnit;
+import com.github.database.rider.core.api.configuration.Orthography;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.spring.api.DBRider;
@@ -14,17 +16,19 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestData
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.containers.PostgreSQLContainer;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("mysql-test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("docker-test")
 @DBRider //enables database rider in spring tests
-public class UserRepositoryMysqlIt {
+@DBUnit(caseSensitiveTableNames = true)
+public class UserRepositoryDockerIt {
 
-    private static final MySQLContainer mysql = new MySQLContainer("mysql:5.6"); //creates the database for all tests on this file
+    private static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:9.6.8"); //creates the database for all tests on this file
 
 
     @Autowired
@@ -33,12 +37,12 @@ public class UserRepositoryMysqlIt {
 
     @BeforeClass
     public static void setupContainer() {
-        mysql.start();
+        postgres.start();
     }
 
     @AfterClass
     public static void shutdown() {
-        mysql.stop();
+        postgres.stop();
     }
 
     @Test
@@ -64,6 +68,18 @@ public class UserRepositoryMysqlIt {
     public void shouldInsertUser()  {
         assertThat(userRepository.count()).isEqualTo(0);
         userRepository.save(new User("newUser@gmail.com", "new user"));
+        //assertThat(userRepository.count()).isEqualTo(1); //assertion is made by @ExpectedDataset
+    }
+
+    @Test
+    @DataSet("user.yml")
+    @ExpectedDataSet("user_updated_expected.yml")
+    public void shouldUpdateUser()  {
+        assertThat(userRepository.count()).isEqualTo(1);
+        User user = userRepository.findByEmail("newUser@gmail.com")
+                .setEmail("updatedUser@gmail.com")
+                .setName("updated user");
+        userRepository.save(user);
         //assertThat(userRepository.count()).isEqualTo(1); //assertion is made by @ExpectedDataset
     }
 }

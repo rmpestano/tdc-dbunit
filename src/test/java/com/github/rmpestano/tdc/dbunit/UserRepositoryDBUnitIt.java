@@ -40,7 +40,8 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 @RunWith(SpringRunner.class)
 @DBRider
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) @ActiveProfiles("h2-test")
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
+@ActiveProfiles("h2-test")
 @SpringBootTest
 public class UserRepositoryDBUnitIt {
 
@@ -60,7 +61,7 @@ public class UserRepositoryDBUnitIt {
     }
 
     @Test
-    @DataSet(executeScriptsBefore = "addUsers.sql")
+    @DataSet(executeScriptsBefore = "add_users.sql")
     public void shouldListUsersInsertedViaScript() {
         assertThat(userRepository.count()).isEqualTo(10);
     }
@@ -89,27 +90,36 @@ public class UserRepositoryDBUnitIt {
                 .hasSize(3);
     }
 
+    @Test
+    @DataSet(cleanBefore = true)//as we didn't declared a dataset DBUnit wont clear the table
+    @ExpectedDataSet("user_expected.yml")
+    public void shouldInsertUser() {
+        assertThat(userRepository.count()).isEqualTo(0);
+        userRepository.save(new User("newUser@gmail.com", "new user"));
+        //assertThat(userRepository.findByEmail("newUser@gmail.com")).isNotNull();  @ExpectedDataSet
+    }
 
     @Test
     @DataSet(value="users.yml")
-    @ExpectedDataSet("expectedUsers.yml")
+    @ExpectedDataSet("users_expected.yml")
     public void shouldDeleteUser() {
-        assertThat(userRepository).isNotNull();
         assertThat(userRepository.count()).isEqualTo(3);
         userRepository.delete(userRepository.findOne(2L));
         //assertThat(userRepository.count()).isEqualTo(2);
         //assertThat(userRepository.findOne(2L)).isNull(); @ExpectedDataSet
     }
 
-
     @Test
-    @DataSet(cleanBefore = true)//as we didn't declared a dataset DBUnit wont clear the table
-    @ExpectedDataSet("user.yml")
-    public void shouldInsertUser() {
-        assertThat(userRepository).isNotNull();
-        assertThat(userRepository.count()).isEqualTo(0);
-        userRepository.save(new User("newUser@gmail.com", "new user"));
-        //assertThat(userRepository.findByEmail("newUser@gmail.com")).isNotNull();  @ExpectedDataSet
+    @DataSet("user.yml")
+    @ExpectedDataSet("user_updated_expected.yml")
+    public void shouldUpdateUser()  {
+        assertThat(userRepository.count()).isEqualTo(1);
+        User user = userRepository.findByEmail("newUser@gmail.com")
+                .setEmail("updatedUser@gmail.com")
+                .setName("updated user");
+        userRepository.save(user);
+        //assertThat(userRepository.findByEmail("updatedUser@gmail.com")).isNotNull(); //assertion is made by @ExpectedDataset
     }
+
 
 }
