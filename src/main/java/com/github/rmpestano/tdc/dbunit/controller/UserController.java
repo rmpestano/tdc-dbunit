@@ -1,4 +1,4 @@
-package com.github.rmpestano.tdc.dbunit.controllers;
+package com.github.rmpestano.tdc.dbunit.controller;
 
 import com.github.rmpestano.tdc.dbunit.model.User;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;

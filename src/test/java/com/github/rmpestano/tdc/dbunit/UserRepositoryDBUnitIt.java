@@ -71,10 +71,16 @@ public class UserRepositoryDBUnitIt {
     @DataSet(value={"tweets.json", "users.yml"})
     public void shouldListTweets() {
         assertThat(tweetRepository.count()).isEqualTo(2);
+        assertThat(tweetRepository.findByContent("dbrider"))
+                .isNotEmpty()
+                .hasSize(1);
+        assertThat(tweetRepository.findByContent("rules"))
+                .isNotEmpty()
+                .hasSize(2);
     }
 
     @Test
-    @DataSet(value={"tweets.json", "users.yml"}, disableConstraints = false, cleanBefore = true)
+    @DataSet(value={"tweets.json"}, disableConstraints = true)
     public void shouldListTweetsDisablingConstraints() {
         assertThat(tweetRepository.count()).isEqualTo(2);
     }

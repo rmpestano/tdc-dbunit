@@ -54,7 +54,7 @@ public class UserRepositoryDockerIt {
 
     @Test
     @DataSet("users.yml")
-    @ExpectedDataSet("expectedUsers.yml")
+    @ExpectedDataSet("users_expected.yml")
     public void shouldDeleteUser() {
         assertThat(userRepository.count()).isEqualTo(3);
         userRepository.delete(userRepository.findOne(2L));
@@ -64,7 +64,7 @@ public class UserRepositoryDockerIt {
 
     @Test
     @DataSet(value="empty.yml")
-    @ExpectedDataSet("user.yml")
+    @ExpectedDataSet("user_expected.yml")
     public void shouldInsertUser()  {
         assertThat(userRepository.count()).isEqualTo(0);
         userRepository.save(new User("newUser@gmail.com", "new user"));
