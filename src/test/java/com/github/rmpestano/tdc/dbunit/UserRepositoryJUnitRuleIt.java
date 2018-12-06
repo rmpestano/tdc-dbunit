@@ -15,13 +15,15 @@
  */
 package com.github.rmpestano.tdc.dbunit;
 
+import com.github.database.rider.core.DBUnitRule;
+import com.github.database.rider.core.api.connection.ConnectionHolder;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.database.rider.core.api.exporter.ExportDataSet;
-import com.github.database.rider.spring.api.DBRider;
 import com.github.rmpestano.tdc.dbunit.model.User;
 import com.github.rmpestano.tdc.dbunit.repository.TweetRepository;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import javax.sql.DataSource;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**
@@ -37,16 +41,22 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author rmpestano
  */
 @RunWith(SpringRunner.class)
-@DBRider
 @ActiveProfiles("h2-test")
 @SpringBootTest
-public class UserRepositoryDBUnitIt {
+public class UserRepositoryJUnitRuleIt {
 
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private TweetRepository tweetRepository;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Rule
+    public DBUnitRule dbUnitRule = DBUnitRule.instance(jdbcConnection());
+
 
     @Test
     @DataSet(value = "users.yml")
@@ -123,5 +133,8 @@ public class UserRepositoryDBUnitIt {
         //assertThat(userRepository.findByEmail("updatedUser@gmail.com")).isNotNull(); //assertion is made by @ExpectedDataset
     }
 
+    private ConnectionHolder jdbcConnection() {
+        return (ConnectionHolder) () -> dataSource.getConnection();
+    }
 
 }

@@ -35,7 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @author rmpestano
  */
 @RunWith(SpringRunner.class)
-@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("h2-test")
 @SpringBootTest
 @Ignore
