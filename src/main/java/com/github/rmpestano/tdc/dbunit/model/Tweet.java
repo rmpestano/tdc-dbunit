@@ -2,7 +2,6 @@ package com.github.rmpestano.tdc.dbunit.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Calendar;
 import java.util.Date;
 
 @Entity
