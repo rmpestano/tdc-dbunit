@@ -40,7 +40,7 @@ public class UserRepositoryIt {
 
 
     @Test
-    public void shouldListUsers() {
+    public void shouldFindByEmail() {
         userRepository.save(new User("springboot@gmail.com", "SpringBoot"));
         assertThat(userRepository.count()).isEqualTo(1);
         assertThat(userRepository.findByEmail("springboot@gmail.com")).isNotNull();
