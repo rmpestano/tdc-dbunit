@@ -55,9 +55,9 @@ public class UserRepositoryIt {
 
     @Test
     public void shouldDeleteUser() {
-        userRepository.save(new User("springboot@gmail.com", "SpringBoot"));
+        userRepository.save(new User("newUser@gmail.com", "new user"));
         assertThat(userRepository.count()).isEqualTo(1);
-        userRepository.delete(userRepository.findByEmail("springboot@gmail.com"));
+        userRepository.delete(userRepository.findByEmail("newUser@gmail.com"));
         assertThat(userRepository.count()).isEqualTo(0);
     }
 
