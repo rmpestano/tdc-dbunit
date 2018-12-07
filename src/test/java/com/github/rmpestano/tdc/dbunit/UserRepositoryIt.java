@@ -15,16 +15,11 @@
  */
 package com.github.rmpestano.tdc.dbunit;
 
-import com.github.database.rider.core.api.dataset.DataSet;
-import com.github.database.rider.core.api.dataset.ExpectedDataSet;
 import com.github.rmpestano.tdc.dbunit.model.User;
 import com.github.rmpestano.tdc.dbunit.repository.UserRepository;
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -37,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringRunner.class)
 @ActiveProfiles("h2-test")
 @SpringBootTest
-@Ignore
+//@Ignore
 public class UserRepositoryIt {
 
     @Autowired
