@@ -19,7 +19,7 @@ public class User {
     @NotNull
     private String name;
 
-    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "user", orphanRemoval = false)
+    @OneToMany(mappedBy = "user")
     private Set<Tweet> tweets = new HashSet<Tweet>();
 
 

@@ -20,7 +20,7 @@ public class Tweet {
     @Temporal(TemporalType.TIMESTAMP)
     private Date date;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false)
     private User user;
 
     public String getContent() {
