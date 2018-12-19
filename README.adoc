@@ -12,7 +12,7 @@ image:https://travis-ci.org/rmpestano/tdc-dbunit.svg[Build Status (Travis CI), l
 
 == Slides
 
-Slides are http://rmpestano.github.io/talks/slides/testing-your-persistence-layer/index-en.html[available here^].
+Slides are http://rmpestano.github.io/talks/slides/tdc-dbunit/index.html[available here^].
 
 == Running tests
 
